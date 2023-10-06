@@ -12,8 +12,12 @@ app.get('/robloxdb/send-data', function (req, res) {
     try {
         db.set(`${placeID}.${dataName}`, data);
         res.send(`OK! Set ${dataName} for ${placeID} to ${data} !`)
-    } catch {
+    } catch(error) {
+        res.status(500);
         res.send("fail.")
+        console.log(`dataName: ${dataName}`)
+        console.log(`data: ${data}`)
+        console.log(`Request to send data to place ${placeID} failed due to error: ${error}`)
     }
 })
 
@@ -27,8 +31,12 @@ app.get('/robloxdb/push-data', function (req, res) {
         res.send(`OK! Pushed 
         ${data} 
         to array for ${placeID} into ${dataName} !`)
-    } catch {
+    } catch(error) {
+        res.status(500);
         res.send("fail.")
+        console.log(`dataName: ${dataName}`)
+        console.log(`data: ${data}`)
+        console.log(`Request to push data to place ${placeID} failed due to error: ${error}`)
     }
 })
 
@@ -38,8 +46,10 @@ app.get('/robloxdb/get-data', function (req, res) {
     try {
         let data = db.get(`${placeID}.${dataName}`);
         res.send(`${data}`)
-    } catch {
+    } catch (error) {
+        res.status(500);
         res.send("fail.")
+        console.log(`Request to get data ${dataName} from place ${placeID} failed due to error: ${error}`)
     }
 })
 
